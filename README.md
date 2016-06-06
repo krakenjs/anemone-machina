@@ -1,8 +1,8 @@
-# react-engine
+# anemone-machina
 
-[![Build Status](https://travis-ci.org/paypal/react-engine.svg?branch=master)](https://travis-ci.org/paypal/react-engine)
+[![Build Status](https://travis-ci.org/paypal/anemone-machina.svg?branch=master)](https://travis-ci.org/paypal/anemone-machina)
 
-### What is react-engine?
+### What is anemone-machina?
 * a react render engine for [Universal](https://medium.com/@mjackson/universal-javascript-4761051b7ae9) (previously [Isomorphic](http://nerds.airbnb.com/isomorphic-javascript-future-web-apps/)) JavaScript apps written with express
 * renders both plain react views and **optionally** react-router views
 * enables server rendered views to be client mountable
@@ -10,15 +10,15 @@
 
 ### Install
 ```sh
-# In your express app, react-engine needs to be installed alongside react (react-router is optional)
-$ npm install react-engine react@0.14 react-router --save
+# In your express app, anemone-machina needs to be installed alongside react (react-router is optional)
+$ npm install anemone-machina react react-router --save
 ```
 
 ### Usage On Server Side
 ###### Setup in an Express app
 ```javascript
 var Express = require('express');
-var ReactEngine = require('react-engine');
+var ReactEngine = require('anemone-machina');
 
 var app = Express();
 
@@ -26,7 +26,7 @@ var app = Express();
 var engine = ReactEngine.server.create({
   /*
     see the complete server options spec here:
-    https://github.com/paypal/react-engine#server-options-spec
+    https://github.com/paypal/anemone-machina#server-options-spec
   */
 });
 
@@ -42,7 +42,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 
 // finally, set the custom view
-app.set('view', require('react-engine/lib/expressView'));
+app.set('view', require('anemone-machina/lib/expressView'));
 ```
 
 ###### Setup in a [KrakenJS](http://krakenjs.com) app's config.json
@@ -50,17 +50,17 @@ app.set('view', require('react-engine/lib/expressView'));
 {
   "express": {
     "view engine": "jsx",
-    "view": "require:react-engine/lib/expressView",
+    "view": "require:anemone-machina/lib/expressView",
   },
   "view engines": {
     "jsx": {
-      "module": "react-engine/lib/server",
+      "module": "anemone-machina/lib/server",
       "renderer": {
         "method": "create",
         "arguments": [{
           /*
             see the complete server options spec here:
-            https://github.com/paypal/react-engine#server-options-spec
+            https://github.com/paypal/anemone-machina#server-options-spec
           */
         }]
       }
@@ -70,7 +70,7 @@ app.set('view', require('react-engine/lib/expressView'));
 ```
 
 ###### Server options spec
-Pass in a JavaScript object as options to the react-engine's [server engine create method](#setup-in-an-express-app).
+Pass in a JavaScript object as options to the anemone-machina's [server engine create method](#setup-in-an-express-app).
 The options object should contain the mandatory `routes` property with the route definition.
 
 Additionally, it can contain the following **optional** properties,
@@ -78,7 +78,7 @@ Additionally, it can contain the following **optional** properties,
 - `docType`: \<String> - a string that can be used as a doctype (_Default: `<!DOCTYPE html>`_).
                         (docType might not make sense if you are rendering partials/sub page components, in that case you can pass an empty string as docType)
 - `routesFilePath`: \<String> - path for the file that contains the react router routes.
-                   react-engine uses this behind the scenes to reload the routes file in
+                   anemone-machina uses this behind the scenes to reload the routes file in
                    cases where [express's app property](http://expressjs.com/api.html#app.set) `view cache` is false, this way you don't need to restart the server every time a change is made in the view files or routes file.
 - `renderOptionsKeysToFilter`: \<Array> - an array of keys that need to be filtered out from the data object that gets fed into the react component for rendering. [more info](#data-for-component-rendering)
 - `performanceCollector`: \<Function> - to collects [perf stats](#performance-profiling)
@@ -94,7 +94,7 @@ var data = {}; // your data model
 res.render(viewName, data);
 
 // for react-router rendering
-// pass in the `url` and react-engine
+// pass in the `url` and anemone-machina
 // will run the react-router behind the scenes.
 res.render(req.url, data);
 ```
@@ -102,7 +102,7 @@ res.render(req.url, data);
 ### Usage On Client Side (Mounting)
 ```js
 // assuming we use `browserify`
-var client = require('react-engine').client;
+var client = require('anemone-machina').client;
 
 // finally, boot whenever your app is ready
 // example:
@@ -125,19 +125,19 @@ var data = client.data();
 ```
 
 ###### Client options spec
-Pass in a JavaScript object as options to the react-engine's client boot function.
+Pass in a JavaScript object as options to the anemone-machina's client boot function.
 It can contain the following properties,
 
 - `routes` : **required** - _Object_ - the route definition file.
-- `viewResolver` : **required** - _Function_ - a function that react-engine needs to resolve the view file.
-  an example of the viewResolver can be [found here](https://github.com/paypal/react-engine/blob/ecd27b30a9028d3f02b8f8e89d355bb5fc909de9/examples/simple/public/index.js#L29).
+- `viewResolver` : **required** - _Function_ - a function that anemone-machina needs to resolve the view file.
+  an example of the viewResolver can be [found here](https://github.com/paypal/anemone-machina/blob/ecd27b30a9028d3f02b8f8e89d355bb5fc909de9/examples/simple/public/index.js#L29).
 - `mountNode` : **optional** - _HTMLDOMNode_ - supply a HTML DOM Node to mount the server rendered component in the case of partial/non-full page rendering.
 - `history` : **optional** - _Object_ - supply any custom history object to be used by the react-router.
 
 ### Data for component rendering
 The actual data that gets fed into the component for rendering is the `renderOptions` object that [express generates](https://github.com/strongloop/express/blob/2f8ac6726fa20ab5b4a05c112c886752868ac8ce/lib/application.js#L535-L588).
 
-If you don't want to pass all that data, you can pass in an array of object keys that react-engine can filter out from the `renderOptions` object before passing it into the component for rendering.
+If you don't want to pass all that data, you can pass in an array of object keys that anemone-machina can filter out from the `renderOptions` object before passing it into the component for rendering.
 
 ```javascript
 // example of using `renderOptionsKeysToFilter` to filter `renderOptions` keys
@@ -154,9 +154,9 @@ Note: By default, the following three keys are always filtered out from `renderO
 - `_locals`
 
 ### Handling redirects and route not found errors on the server side
-While using react-router, it matches the url to a component based on the app's defined routes. react-engine captures the redirects and not-found cases that are encountered while trying to run the react-router's [match function on the server side](https://github.com/reactjs/react-router/blob/master/docs/guides/ServerRendering.md).
+While using react-router, it matches the url to a component based on the app's defined routes. anemone-machina captures the redirects and not-found cases that are encountered while trying to run the react-router's [match function on the server side](https://github.com/reactjs/react-router/blob/master/docs/guides/ServerRendering.md).
 
-To handle the above during the lifecycle of a request, add an error type check in your express error middleware. The following are the three types of error that get thrown by react-engine:
+To handle the above during the lifecycle of a request, add an error type check in your express error middleware. The following are the three types of error that get thrown by anemone-machina:
 
 Error Type           | Description   
 -------------------- | --------------------------------------------------------
@@ -190,17 +190,13 @@ app.use(function(err, req, res, next) {
 });
 ```
 
-### Yeoman Generator
-There is a Yeoman generator available to create a new express or KrakenJS application which uses react-engine:
-[generator-react-engine](https://www.npmjs.com/package/generator-react-engine).
-
 ### Performance Profiling
 
 Pass in a function to the `performanceCollector` property to collect the `stats`
 object for every render.
 
 ##### `stats`
-The object that contains the stats info for each render by react-engine.
+The object that contains the stats info for each render by anemone-machina.
 It has the below properties.
 - `name` - Name of the template or the url in case of react router rendering.
 - `startTime` - The start time of render.
@@ -213,7 +209,7 @@ function collector(stats) {
   console.log(stats);
 }
 
-var engine = require('react-engine').server.create({
+var engine = require('anemone-machina').server.create({
   routes: './routes.jsx'
   performanceCollector: collector
 });
@@ -223,18 +219,7 @@ var engine = require('react-engine').server.create({
 * On the client side, the state is exposed on the window object's property `__REACT_ENGINE__`
 * When Express's `view cache` app property is false (mostly in non-production environments), views are automatically reloaded before render. So there is no need to restart the server for seeing the changes.
 * You can use `js` as the engine if you decide not to write your react views in `jsx`.
-* [Blog on react-engine](https://www.paypal-engineering.com/2015/04/27/isomorphic-react-apps-with-react-engine/)
 
-### Migration from 2.x to 3.x
-While upgrading to 3.x version of react-engine, make sure to follow the [react-router's 2.x upgrade guide](https://github.com/reactjs/react-router/blob/master/upgrade-guides/v2.0.0.md) to upgrade react-router related code in your app.
-Then, add to your express error middleware, react-engine's MATCH_REDIRECT and MATCH_NOT_FOUND checks.
-
-### Migration from 1.x to 2.x
-2.x version of react-engine brought in a major api change. Basically it affects the property names of the [object that gets passed in during the engine creation](https://github.com/paypal/react-engine#server-options-spec) on the server side and also how routes definition is passed into react-engine.
-
-In v2.x, `routes` need to be explicitly required and passed in to the engine creation method. Also, any [react-router known properties can be passed in](https://github.com/reactjs/react-router/blob/0.13.x/doc/02%20Top-Level/Router.create.md).
-
-An example engine creation can be found [here](https://github.com/paypal/react-engine/blob/71ac27196e72059484332a491cd66982797a60a3/examples/complex/index.js#L28).
 
 ### License
 [Apache Software License v2.0](http://www.apache.org/licenses/LICENSE-2.0)

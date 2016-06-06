@@ -18,8 +18,8 @@
 // import the react-router routes
 var Routes = require('./routes.jsx');
 
-// import the react-engine's client side booter
-var ReactEngineClient = require('react-engine/lib/client');
+// import the anemone-machina's client side booter
+var ReactEngineClient = require('anemone-machina/lib/client');
 
 // boot options
 var options = {

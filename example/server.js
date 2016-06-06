@@ -20,13 +20,13 @@ const PORT = 3000;
 import {join} from 'path';
 import express from 'express';
 import favicon from 'serve-favicon';
-import ReactEngine from 'react-engine';
+import ReactEngine from 'anemone-machina';
 import movies from './movies.json';
 import routes from './public/routes.jsx';
 
 let app = express();
 
-// create the view engine with `react-engine`
+// create the view engine with `anemone-machina`
 let engine = ReactEngine.server.create({
   routes: routes,
   routesFilePath: join(__dirname, '/public/routes.jsx'),

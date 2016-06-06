@@ -1,6 +1,6 @@
 {
-  "name": "react-engine",
-  "version": "3.4.1",
+  "name": "anemone-machina",
+  "version": "0.0.1",
   "description": "a composite render engine for express apps to render both plain react views and react-router views",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:paypal/react-engine.git"
+    "url": "git@github.com:paypal/anemone-machina.git"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
@@ -20,7 +20,7 @@
     "glob": "^5.0.3",
     "lodash": "^3.10.1",
     "parent-require": "^1.0.0",
-    "react-dom": "^0.14.0"
+    "react-dom": "^15.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.3.26",
@@ -38,14 +38,16 @@
     "jscs": "^1.11.3",
     "jsdom": "3.0.0",
     "jshint": "^2.6.3",
-    "react": "^0.14.0",
-    "react-router": "^2.4.0",
+    "react": "^15.1.0",
+    "react-router": "^2.4.1",
     "rewire": "^2.3.1",
     "sinon": "^1.14.1",
     "tape": "^3.5.0",
     "time-grunt": "^1.2.1"
   },
   "keywords": [
+    "kraken-js",
+    "anemone",
     "react",
     "render",
     "render engine",
@@ -63,7 +65,8 @@
     "Weng Zhi Ping",
     "Vincent Orr <vincent@cmdv.org>",
     "skarflacka",
-    "Mark <mark@remarkablemark.org>"
+    "Mark <mark@remarkablemark.org>",
+    "grawk <mattedelman@gmail.com>"
   ],
   "licenses": [
     {
