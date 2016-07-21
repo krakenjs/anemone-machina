@@ -8,10 +8,7 @@
     "jscs": "jscs --verbose .",
     "tape": "tape test/*.js | faucet"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:paypal/anemone-machina.git"
-  },
+  "repository": "krakenjs/anemone-machina",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },
