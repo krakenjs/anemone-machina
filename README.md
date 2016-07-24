@@ -26,7 +26,7 @@ var app = Express();
 var engine = ReactEngine.server.create({
   /*
     see the complete server options spec here:
-    https://github.com/paypal/anemone-machina#server-options-spec
+    https://github.com/krakenjs/anemone-machina#server-options-spec
   */
 });
 
@@ -60,7 +60,7 @@ app.set('view', require('anemone-machina/lib/expressView'));
         "arguments": [{
           /*
             see the complete server options spec here:
-            https://github.com/paypal/anemone-machina#server-options-spec
+            https://github.com/krakenjs/anemone-machina#server-options-spec
           */
         }]
       }
@@ -130,7 +130,7 @@ It can contain the following properties,
 
 - `routes` : **required** - _Object_ - the route definition file.
 - `viewResolver` : **required** - _Function_ - a function that anemone-machina needs to resolve the view file.
-  an example of the viewResolver can be [found here](https://github.com/paypal/anemone-machina/blob/ecd27b30a9028d3f02b8f8e89d355bb5fc909de9/examples/simple/public/index.js#L29).
+  an example of the viewResolver can be [found here](https://github.com/krakenjs/anemone-machina/blob/ecd27b30a9028d3f02b8f8e89d355bb5fc909de9/examples/simple/public/index.js#L29).
 - `mountNode` : **optional** - _HTMLDOMNode_ - supply a HTML DOM Node to mount the server rendered component in the case of partial/non-full page rendering.
 - `history` : **optional** - _Object_ - supply any custom history object to be used by the react-router.
 
